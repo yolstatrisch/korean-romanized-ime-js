@@ -169,29 +169,31 @@ function get_choice_list(text){
     }
     if(final == null){
         final = 'q';
-        extra = [1, 4, 7, 8, 16, 17, 19, 21, 22, 23, 24, 25, 26, 27];
+        extra = final_jamo['e'];
     }
 
     start = initial_jamo[start];
     middle = medial_jamo[middle];
     final = final_jamo[final];
 
+    return_val = compose_block_from_list(start, middle, final)
+
+    if(return_val.length < choices.length && extra.length > 0){
+        var block_list = compose_block_from_list(start, middle, extra);
+        return_val = return_val.concat(block_list);
+    }
+
+    return return_val;
+}
+
+function compose_block_from_list(start, middle, final){
+    var return_val = [];
+
     for(var i in start){
         for(var j in middle){
             for(var k in final){
                 var string = String.fromCharCode(start[i] * 588 + middle[j] * 28 + final[k] + 44032);
                 return_val.push(string);
-            }
-        }
-    }
-
-    if(return_val.length < choices.length && extra.length > 0){
-        for(var i in start){
-            for(var j in middle){
-                for(var k in extra){
-                    var string = String.fromCharCode(start[i] * 588 + middle[j] * 28 + extra[k] + 44032);
-                    return_val.push(string);
-                }
             }
         }
     }
