@@ -81,12 +81,16 @@ final_jamo = {
 }
 
 re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([ks])\5{0,1}|[ntlmph]|ng|ks|nj|nh|lg|lm|lb|ls|lt|lp|lh|bs))?$/m;
-re_num = /\d$/m;
+re_num = /(.*)(\d)(\D*)$/m;
 
-function update_list(){
+function update_list(event){
     var text_value = text_box.value;
 
-    check_num(text_value);
+    key = Number(event.key);
+    if(key > 0 && key < 10){
+        replace_text(text_value, key - 1);
+    }
+
     empty_choices();
 
     var choice_list = get_choice_list(text_value);
@@ -96,18 +100,15 @@ function update_list(){
     }
 }
 
-function check_num(text){
-    var match = text.match(re_num);
+function remove_num(match, p1, p2, p3, offset, string){
+    return [p1, p3].join('');
+}
 
-    if(match == null){
-        return;
-    }
-    match = match[0] - 1;
+function replace_text(text, number){
+    text = text.replace(re_num, remove_num);
 
-    text = text.replace(re_num, '');
-
-    if(choices[match].innerText != ''){
-        text = text.replace(re, choices[match].innerText);
+    if(choices[number].innerText != ''){
+        text = text.replace(re, choices[number].innerText);
     }
 
     text_box.value = text;
