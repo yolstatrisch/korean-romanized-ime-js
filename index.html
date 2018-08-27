@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <title>Romanized Korean IME</title>
+        <link rel="stylesheet" href="./css/index.css">
     </head>
     <body>
-        <input type="text" id="text_input" onkeyup="update_list(event)">
+        <input type="text" id="text_input" onkeyup="parse_event(event)">
         <p>Searching for: <span id="span"></span></p>
         <ol id="choices">
             <li></li>
@@ -20,6 +21,6 @@
         </ul>
     </body>
     <footer>
-        <script src="./ime.js" charset="utf-8"></script>
+        <script src="./js/ime.js" charset="utf-8"></script>
     </footer>
 </html>

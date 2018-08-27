@@ -5,6 +5,8 @@ span = document.getElementById('span');
 
 empty_choices();
 
+var selected = null;
+
 initial_jamo = {
     g: [0],
     k: [15, 0],
@@ -92,16 +94,70 @@ final_jamo = {
 re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([kgs])\5{0,1}|[ndtlmbph]|l[kgmbstph]|n[gjh]|[kgbp]s))?$/m;
 re_num = /(.*)(\d)(\D*)$/m;
 
-function update_list(event){
-    var text_value = text_box.value;
+function mod(n, m){
+    return ((n % m) + m) % m;
+}
 
-    key = Number(event.key);
-    size = Number(ordered_list.id);
+function parse_event(event){
+    var elements = Number(ordered_list.id);
 
-    if(key > 0 && key <= size){
-        replace_text(text_value, key - 1);
+    switch(event.keyCode){
+        case 13:{
+            var text_value = text_box.value;
+
+            replace_text(text_value, selected);
+
+            selected = null;
+            select_choice(selected);
+            break;
+        }
+        case 37:{
+            break;
+        }
+        case 38:{
+            if(selected == null) selected = 0;
+            selected = mod(selected - 1, elements);
+            select_choice(choices[selected]);
+            break;
+        }
+        case 39:{
+            break;
+        }
+        case 40:{
+            if(selected == null) selected = -1;
+            selected = mod(selected + 1, elements);
+            select_choice(choices[selected]);
+            break;
+        }
+        default:
+            var text_value = text_box.value;
+
+            selected = null;
+            select_choice(selected);
+
+            var key = Number(event.key);
+            var size = Number(ordered_list.id);
+
+            if(key > 0 && key <= size){
+                replace_text(text_value, key - 1);
+            }
+            else{
+                update_list(text_value);
+            }
+    }
+}
+
+function select_choice(choice){
+    for(var i = 0; i < choices.length; i++){
+        choices[i].className = '';
     }
 
+    if(choice != null){
+        choice.className = 'selected';
+    }
+}
+
+function update_list(text_value){
     empty_choices();
 
     var choice_list = get_choice_list(text_value);
@@ -123,6 +179,7 @@ function replace_text(text, number){
     }
 
     text_box.value = text;
+    empty_choices();
 }
 
 function empty_choices(){
