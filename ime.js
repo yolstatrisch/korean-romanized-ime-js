@@ -2,21 +2,23 @@ text_box = document.getElementById('text_input');
 choices = document.getElementsByTagName('li');
 span = document.getElementById('span');
 
+empty_choices();
+
 initial_jamo = {
     g: [0],
-    k: [0, 15],
+    k: [15, 0],
     gg: [1],
     kk: [1],
     n: [2],
     d: [3],
-    t: [3, 16],
+    t: [16, 3],
     dd: [4],
     tt: [4],
     r: [5],
     l: [5],
     m: [6],
     b: [7],
-    p: [7, 17],
+    p: [17, 7],
     bb: [8],
     pp: [8],
     s: [9],
@@ -34,17 +36,17 @@ medial_jamo = {
     ya: [2, 3],
     yae: [3],
     eo: [4],
-    e: [4, 5, 18],
+    e: [5, 4, 18],
     yeo: [6],
-    ye: [6, 7],
-    o: [8],
+    ye: [7, 6],
+    o: [8, 11],
     wa: [9, 10],
     wae: [10],
-    oe: [8, 11],
+    oe: [11],
     yo: [12],
     u: [13, 19],
     weo: [14],
-    we: [14, 15],
+    we: [15, 14],
     wi: [16],
     yu: [17],
     eu: [18],
@@ -54,13 +56,14 @@ medial_jamo = {
 
 final_jamo = {
     q: [0],
-    k: [1, 2, 3, 9],
+    e: [1, 4, 7, 8, 16, 17, 19, 21, 22, 23, 24, 25, 26, 27],
+    k: [1, 2, 24, 3, 9],
     kk: [2],
     ks: [3],
     n: [4, 5, 6],
     nj: [5],
     nh: [6],
-    t: [7, 12, 13],
+    t: [7, 22, 23, 25, 12, 13],
     l: [8, 9, 10, 11, 12, 13, 14, 15],
     lg: [9],
     lm: [10],
@@ -70,7 +73,7 @@ final_jamo = {
     lp: [14],
     lh: [15],
     m: [10, 16],
-    p: [11, 14, 17],
+    p: [17, 26, 11, 14],
     bs: [18],
     ss: [20],
     ng: [21],
@@ -113,6 +116,7 @@ function check_num(text){
 function empty_choices(){
     for(var i = 0; i < choices.length; i++){
         choices[i].innerText = '';
+        choices[i].style.visibility = 'hidden';
     }
 
     span.innerHTML = '';
@@ -124,12 +128,14 @@ function populate_choices(choice_list){
             break;
         }
         choices[i].innerText = choice_list[i];
+        choices[i].style.visibility = 'visible';
     }
 }
 
 function get_choice_list(text){
     var match = text.match(re);
     var return_val = [];
+    var extra = [];
 
     if(match == null){
         return null;
@@ -146,6 +152,7 @@ function get_choice_list(text){
     }
     if(final == null){
         final = 'q';
+        extra = [1, 4, 7, 8, 16, 17, 19, 21, 22, 23, 24, 25, 26, 27];
     }
 
     start = initial_jamo[start];
@@ -157,6 +164,17 @@ function get_choice_list(text){
             for(var k in final){
                 var string = String.fromCharCode(start[i] * 588 + middle[j] * 28 + final[k] + 44032);
                 return_val.push(string);
+            }
+        }
+    }
+
+    if(return_val.length < choices.length && extra.length > 0){
+        for(var i in start){
+            for(var j in middle){
+                for(var k in extra){
+                    var string = String.fromCharCode(start[i] * 588 + middle[j] * 28 + extra[k] + 44032);
+                    return_val.push(string);
+                }
             }
         }
     }
