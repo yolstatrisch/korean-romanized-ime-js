@@ -1,4 +1,5 @@
 text_box = document.getElementById('text_input');
+ordered_list = document.getElementById('choices');
 choices = document.getElementsByTagName('li');
 span = document.getElementById('span');
 
@@ -66,7 +67,7 @@ final_jamo = {
     n: [4, 21, 5, 6],
     nj: [5],
     nh: [6],
-    t: [7, 22, 23, 25, 12, 13],
+    t: [7, 19, 20, 22, 23, 25, 12, 13],
     d: [7],
     l: [8, 9, 10, 11, 12, 13, 14, 15],
     lk: [9],
@@ -95,7 +96,9 @@ function update_list(event){
     var text_value = text_box.value;
 
     key = Number(event.key);
-    if(key > 0 && key < 10){
+    size = Number(ordered_list.id);
+
+    if(key > 0 && key <= size){
         replace_text(text_value, key - 1);
     }
 
@@ -128,17 +131,22 @@ function empty_choices(){
         choices[i].style.visibility = 'hidden';
     }
 
+    ordered_list.id = '0';
     span.innerHTML = '';
 }
 
 function populate_choices(choice_list){
-    for(var i = 0; i < choices.length; i++){
+    var i;
+
+    for(i = 0; i < choices.length; i++){
         if (i >= choice_list.length){
             break;
         }
         choices[i].innerText = choice_list[i];
         choices[i].style.visibility = 'visible';
     }
+
+    ordered_list.id = i.toString();
 }
 
 function get_choice_list(text){
