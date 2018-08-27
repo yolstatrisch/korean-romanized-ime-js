@@ -46,6 +46,7 @@ medial_jamo = {
     yo: [12],
     u: [13, 19],
     weo: [14],
+    wo: [14],
     we: [15, 14],
     wi: [16],
     yu: [17],
@@ -87,7 +88,7 @@ final_jamo = {
     h: [27]
 }
 
-re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([kgs])\5{0,1}|[ndtlmbph]|ng|ks|gs|nj|nh|lk|lg|lm|lb|ls|lt|lp|lh|bs|ps))?$/m;
+re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([kgs])\5{0,1}|[ndtlmbph]|l[kgmbstph]|n[gjh]|[kgbp]s))?$/m;
 re_num = /(.*)(\d)(\D*)$/m;
 
 function update_list(event){
