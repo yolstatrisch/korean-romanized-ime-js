@@ -1,7 +1,6 @@
 text_box = document.getElementById('text_input');
 ordered_list = document.getElementById('choices');
 choices = document.getElementsByTagName('li');
-span = document.getElementById('span');
 
 empty_choices();
 
@@ -153,7 +152,7 @@ function select_choice(choice){
     }
 
     if(choice != null){
-        choice.className = 'selected';
+        choice.className = 'highlight';
     }
 }
 
@@ -179,6 +178,7 @@ function replace_text(text, number){
     }
 
     text_box.value = text;
+    updateTextBox();
     empty_choices();
 }
 
@@ -189,7 +189,6 @@ function empty_choices(){
     }
 
     ordered_list.id = '0';
-    span.innerHTML = '';
 }
 
 function populate_choices(choice_list){
@@ -214,8 +213,6 @@ function get_choice_list(text){
     if(match == null){
         return null;
     }
-
-    span.innerHTML = match[0];
 
     start = match[1];
     middle = match[3];

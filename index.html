@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <title>Romanized Korean IME</title>
         <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/jquery.highlight-within-textarea.css">
     </head>
     <body>
-        <input type="text" id="text_input" onkeyup="parse_event(event)">
-        <p>Searching for: <span id="span"></span></p>
+        <textarea id="text_input" onkeyup="parse_event(event)"></textarea>
         <ol id="choices">
             <li></li>
             <li></li>
@@ -18,9 +18,15 @@
             <li></li>
             <li></li>
             <li></li>
-        </ul>
+        </ol>
     </body>
     <footer>
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
         <script src="./js/ime.js" charset="utf-8"></script>
+        <script src="./js/ui.js" charset="utf-8"></script>
+        <script src="./js/jquery.highlight-within-textarea.js" charset="utf-8"></script>
     </footer>
 </html>

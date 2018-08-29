@@ -1,3 +1,8 @@
 .selected{
     background-color: #3399ff;
 }
+
+.highlight{
+    background-color: rgb(193, 190, 204);
+    border-radius: 2px;
+}
