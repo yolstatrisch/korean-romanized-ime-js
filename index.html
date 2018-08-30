@@ -7,18 +7,22 @@
         <link rel="stylesheet" href="./css/jquery.highlight-within-textarea.css">
     </head>
     <body>
-        <textarea id="text_input" onkeyup="parse_event(event)"></textarea>
-        <ol id="choices">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ol>
+        <div id="content">
+            <textarea id="text_input" spellcheck="false"></textarea>
+            <div id="choice_content">
+                <ol id="choices">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
+            </div>
+        </div>
     </body>
     <footer>
         <script
