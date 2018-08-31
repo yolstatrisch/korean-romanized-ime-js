@@ -88,6 +88,7 @@ $(function(){
             default:
                 setBorder('3px');
                 var text_value = text_box.value;
+                text_value = text_value.toLowerCase();
 
                 selected = null;
                 select_choice(selected);

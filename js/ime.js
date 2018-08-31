@@ -6,6 +6,23 @@ empty_choices();
 
 var selected = null;
 
+korean_initial_jamo = [
+        'g', 'gg', 'n', 'd', 'dd', 'r', 'm', 'b', 'bb',
+        's', 'ss', '', 'j', 'jj', 'c', 'k', 't', 'p', 'h'
+    ];
+
+korean_medial_jamo = [
+        'a', 'ae', 'ya', 'yae', 'eo', 'e', 'yeo', 'ye', 'o',
+        'wa', 'wae', 'oe', 'yo', 'u', 'weo', 'we', 'wi',
+        'yu', 'eu', 'ui', 'i'
+    ];
+
+korean_final_jamo = [
+        '', 'g', 'gg', 'gs', 'n', 'nj', 'nh', 'd', 'l', 'lg', 'lm',
+        'lb', 'ls', 'lt', 'lp', 'lh', 'm', 'b', 'bs',
+        's', 'ss', 'ng', 'j', 'c', 'k', 't', 'p', 'h'
+    ];
+
 initial_jamo = {
     g: [0],
     k: [15, 0],
@@ -54,7 +71,8 @@ medial_jamo = {
     yu: [17, 6],
     eu: [18],
     ui: [19],
-    i: [20]
+    i: [20],
+    yi: [20]
 }
 
 final_jamo = {
@@ -90,7 +108,7 @@ final_jamo = {
     h: [27]
 }
 
-re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([kgs])\5{0,1}|[ndtlmbph]|l[kgmbstph]|n[gjh]|[kgbp]s))?$/;
+re = /(([kgdtbpsj])\2{0,1}|[nrlmh]|ch)?((?:w|y)?(?:[aeiou]|ae|eo|eu|oe|ui))((?:([kgs])\5{0,1}|[ndtlmbph]|l[kgmbstph]|n[gjh]|[kgbp]s))?$/i;
 re_num = /(.*)(\d)(\D*)$/m;
 
 function mod(n, m){
@@ -201,8 +219,9 @@ function compose_block_from_list(start, middle, final){
     for(var i in start){
         for(var j in middle){
             for(var k in final){
-                var string = String.fromCharCode(start[i] * 588 + middle[j] * 28 + final[k] + 44032);
-                return_val.push(string);
+                var hangul_block = String.fromCharCode(start[i] * 588 + middle[j] * 28 + final[k] + 44032);
+                var romanized_block = korean_initial_jamo[start[i]] + korean_medial_jamo[middle[j]] + korean_final_jamo[final[k]];
+                return_val.push(hangul_block);
             }
         }
     }
