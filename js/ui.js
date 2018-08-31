@@ -46,7 +46,7 @@ $(function(){
     $('#text_input').on('keydown', function(event){
         var elements = Number(ordered_list.id);
 
-        if(event.originalEvent.keyCode == 13 && selected != null && selected < elements){
+        if((event.originalEvent.keyCode == 13 || event.originalEvent.keyCode == 38 || event.originalEvent.keyCode == 40) && selected != null && selected < elements){
             event.preventDefault();
         }
     });
