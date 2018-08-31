@@ -7,6 +7,9 @@ $(function(){
     $('#text_input').parent().css('border-radius', '3px');
     $('#text_input').parent().children('div').css('border-radius', '3px');
 
+    $('#text_input').css('border-width', '1px');
+    $('.hwt-container').css('margin', '0');
+    $('.hwt-container').css('padding', '0');
     $('.hwt-container').css('font-family', 'Calibri');
     $('.hwt-container').css('font-size', '2em');
 
@@ -21,6 +24,23 @@ $(function(){
         $('#text_input').parent().css('border-bottom-right-radius', rad);
         $('#text_input').parent().children('div').css('border-bottom-left-radius', rad);
         $('#text_input').parent().children('div').css('border-bottom-right-radius', rad);
+    }
+
+    moveToMarker = function moveDivToMarker(){
+        mark = document.getElementsByTagName('mark');
+        text = document.getElementById('text_input');
+
+        if(mark.length > 0){
+            offset = mark[0].getBoundingClientRect();
+            offset_text = text.getBoundingClientRect();
+            offset_left = offset.left;
+            offset_text_left = offset_text.left;
+
+            diff = offset_left - offset_text_left - 1;
+
+            $('#choice_content').css('left', diff + 'px');
+            $('#choice_content').css('top', '3em');
+        }
     }
 
     $('#text_input').on('keydown', function(event){
@@ -81,6 +101,8 @@ $(function(){
                 else{
                     update_list(text_value);
                 }
+
+                moveToMarker();
         }
     });
 });

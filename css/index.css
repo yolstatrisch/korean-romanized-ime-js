@@ -2,40 +2,54 @@
     --orange: #e06f1f;
     --orange_accent: #ecab7e;
     --blue: #0a899c;
-    --blue_accent: #62b8be;
-    --white: #fceade;
+    --blue_accent: #84e0e7;
+    --white: #def2fc;
 }
 
 textarea{
     resize: none;
     width: calc(100% - 3px);
-    height: calc(100% - 3px);
+    height: calc(100% - 2px);
 }
 
 ol{
     font-family: Calibri;
     font-size: 1.25em;
+    color: var(--blue);
     list-style-position: inside;
     margin: 0;
     padding: 0;
 }
 
+li{
+    background-color: var(--white);
+    border-width: 1px;
+    border-top-width: 0px;
+    border-style: solid;
+    border-color: var(--blue);
+}
+
 #content{
     position: relative;
+    top: 35vh;
     left: 50%;
 
     width: 90vw;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 
     transform: translateX(-50%);
 }
 
 #choice_content{
-    width: inherit;
+    position: absolute;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 3em;
 }
 
 .highlight{
@@ -45,10 +59,14 @@ ol{
 .hwt-container{
     background-color: var(--white);
     width: inherit;
-    height: 4em;
+    height: 1.5em;
+}
+
+.hwt-content{
+    color: var(--blue);
 }
 
 .hwt-content mark{
-    background-color: var(--orange);
+    background-color: var(--blue_accent);
     border-radius: 2px;
 }
